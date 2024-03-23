@@ -6,7 +6,7 @@
 /*   By: mjadid <mjadid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 22:38:18 by mjadid            #+#    #+#             */
-/*   Updated: 2024/03/23 09:53:19 by mjadid           ###   ########.fr       */
+/*   Updated: 2024/03/23 21:52:23 by mjadid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@ char	*to_read(int fd, char *s)
 
 	i = 0;
 	flag = 0;
-	buff = malloc(BUFFER_SIZE + 1);
-	if (!buff)
-		return (to_free(&s));
 	while (!flag)
 	{
-        charsread = read(fd, buff, BUFFER_SIZE);
+		buff = malloc(BUFFER_SIZE + 1);
+		if (!buff)
+			return (to_free(&s));
+		charsread = read(fd, buff, BUFFER_SIZE);
 		buff[charsread] = '\0';
-        if (charsread <= 0)
+		if (charsread <= 0)
 		{
 			free(buff);
 			if (charsread == 0)
@@ -43,11 +43,11 @@ char	*to_read(int fd, char *s)
 
 char	*ft_linelimiter(char *str)
 {
-	int		i;
+	size_t	i;
 	size_t	len;
-    char *line;
-    
-    i = 0;
+	char	*line;
+
+	i = 0;
 	len = ft_strlen(str, '\n');
 	line = malloc(len + 1);
 	if (!line)
@@ -61,6 +61,16 @@ char	*ft_linelimiter(char *str)
 	return (line);
 }
 
+char	*to_update(char *str)
+{
+	size_t	len;
+	size_t	i;
+
+	i = 0;
+	len = ft_strlen(str, '\n');
+	return (str + i);
+}
+
 char	*get_next_line(int fd)
 {
 	static char	*s;
@@ -68,10 +78,10 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) == -1)
 		return (to_free(&s));
-    s = to_read(fd, s);
-    if(!s)
-        return(to_free(&s));
+	s = to_read(fd, s);
+	if (!s)
+		return (NULL);
 	line = ft_linelimiter(s);
-    // s = 
-    return(line);
+	s = to_update(s);
+	return (line);
 }
