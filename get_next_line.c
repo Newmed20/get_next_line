@@ -6,7 +6,7 @@
 /*   By: mjadid <mjadid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 22:38:18 by mjadid            #+#    #+#             */
-/*   Updated: 2024/03/24 09:43:02 by mjadid           ###   ########.fr       */
+/*   Updated: 2024/03/24 09:52:14 by mjadid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,7 @@ char	*to_update(char *str)
 	{
 		newstr = malloc(len + 1);
 		if (!newstr)
-		{
-			to_free(&str);
-			return (0);
-		}
+			return (to_free(&str));
 		while (i < len)
 		{
 			newstr[i] = str[linelen + i + 1];
