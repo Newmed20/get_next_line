@@ -6,7 +6,7 @@
 /*   By: mjadid <mjadid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 22:38:18 by mjadid            #+#    #+#             */
-/*   Updated: 2024/03/23 21:52:23 by mjadid           ###   ########.fr       */
+/*   Updated: 2024/03/24 09:43:02 by mjadid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ char	*to_read(int fd, char *s)
 				return (s);
 			return (to_free(&s));
 		}
-		s = ft_strjoin(s, buff);
 		flag = is_exist(buff);
+		s = ft_strjoin(s, buff);
 	}
 	return (s);
 }
@@ -49,10 +49,10 @@ char	*ft_linelimiter(char *str)
 
 	i = 0;
 	len = ft_strlen(str, '\n');
-	line = malloc(len + 1);
+	line = malloc(len + 2);
 	if (!line)
 		return (to_free(&str));
-	while (str[i] && i < len)
+	while (str[i] && i <= len)
 	{
 		line[i] = str[i];
 		i++;
@@ -63,12 +63,33 @@ char	*ft_linelimiter(char *str)
 
 char	*to_update(char *str)
 {
-	size_t	len;
-	size_t	i;
+	int		len;
+	int		i;
+	size_t	linelen;
+	char	*newstr;
 
 	i = 0;
-	len = ft_strlen(str, '\n');
-	return (str + i);
+	linelen = ft_strlen(str, '\n');
+	len = ft_strlen(str, '\0') - linelen - 1;
+	if (len > 0)
+	{
+		newstr = malloc(len + 1);
+		if (!newstr)
+		{
+			to_free(&str);
+			return (0);
+		}
+		while (i < len)
+		{
+			newstr[i] = str[linelen + i + 1];
+			i++;
+		}
+		newstr[i] = '\0';
+	}
+	else
+		return (NULL);
+	to_free(&str);
+	return (newstr);
 }
 
 char	*get_next_line(int fd)

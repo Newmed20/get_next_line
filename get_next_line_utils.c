@@ -6,7 +6,7 @@
 /*   By: mjadid <mjadid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 16:18:50 by mjadid            #+#    #+#             */
-/*   Updated: 2024/03/23 21:28:05 by mjadid           ###   ########.fr       */
+/*   Updated: 2024/03/24 09:47:47 by mjadid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,20 +66,22 @@ char	*ft_strjoin(char *s1, char *s2)
 	if (!s1 && !s2)
 		return (0);
 	i = 0;
-	s1_len = ft_strlen(s1 , '\0');
-	newstrlen = s1_len + ft_strlen(s2 , '\0');
+	s1_len = ft_strlen(s1, '\0');
+	newstrlen = s1_len + ft_strlen(s2, '\0');
 	newstr = malloc(newstrlen + 1);
-	if (newstr)
+	if (!newstr)
 	{
-		while (s1 && s1[i++])
-			newstr[i - 1] = s1[i - 1];
-		i = 0;
-		while (s2 && s2[i++])
-			newstr[s1_len + (i - 1)] = s2[i - 1];
-		newstr[newstrlen] = 0;
+		to_free(&s2);
+		return (to_free(&s1));
 	}
-	// sclear(&s1);
-	// sclear(&s2);
+	while (s1 && s1[i++])
+		newstr[i - 1] = s1[i - 1];
+	i = 0;
+	while (s2 && s2[i++])
+		newstr[s1_len + (i - 1)] = s2[i - 1];
+	newstr[newstrlen] = 0;
+	to_free(&s1);
+	to_free(&s2);
 	return (newstr);
 }
 
