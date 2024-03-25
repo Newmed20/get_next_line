@@ -6,7 +6,7 @@
 /*   By: mjadid <mjadid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 16:18:50 by mjadid            #+#    #+#             */
-/*   Updated: 2024/03/25 02:52:15 by mjadid           ###   ########.fr       */
+/*   Updated: 2024/03/25 03:02:27 by mjadid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ char	*ft_strjoin(char *s1, char *s2)
 		newstr[s1_len + (i - 1)] = s2[i - 1];
 	newstr[newstrlen] = 0;
 	to_free(&s1);
-	to_free(&s2);
 	return (newstr);
 }
 

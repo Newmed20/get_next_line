@@ -6,7 +6,7 @@
 /*   By: mjadid <mjadid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 22:38:18 by mjadid            #+#    #+#             */
-/*   Updated: 2024/03/25 02:59:12 by mjadid           ###   ########.fr       */
+/*   Updated: 2024/03/25 03:06:43 by mjadid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,16 @@
 
 char	*to_read(int fd, char *s)
 {
-	int		i;
 	int		flag;
 	char	*buff;
 	int		charsread;
 
-	i = 0;
 	flag = 0;
+	buff = malloc(BUFFER_SIZE + 1);
+	if (!buff)
+		return (to_free(&s));
 	while (!flag)
 	{
-		buff = malloc(BUFFER_SIZE + 1);
-		if (!buff)
-			return (to_free(&s));
 		charsread = read(fd, buff, BUFFER_SIZE);
 		buff[charsread] = '\0';
 		if (charsread <= 0)
@@ -38,6 +36,7 @@ char	*to_read(int fd, char *s)
 		flag = is_exist(buff);
 		s = ft_strjoin(s, buff);
 	}
+	to_free(&buff);
 	return (s);
 }
 
