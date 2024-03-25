@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mjadid <mjadid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/21 16:18:55 by mjadid            #+#    #+#             */
-/*   Updated: 2024/03/25 02:51:43 by mjadid           ###   ########.fr       */
+/*   Created: 2024/03/25 02:51:04 by mjadid            #+#    #+#             */
+/*   Updated: 2024/03/25 02:52:07 by mjadid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef GET_NEXT_LINE_BONUS_H
+# define GET_NEXT_LINE_BONUS_H
 
 # include <fcntl.h>
-# include <stdio.h>
+# include <limits.h>
 # include <stdlib.h>
 # include <unistd.h>
 

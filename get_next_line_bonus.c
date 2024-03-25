@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mjadid <mjadid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 22:38:18 by mjadid            #+#    #+#             */
-/*   Updated: 2024/03/25 02:42:44 by mjadid           ###   ########.fr       */
+/*   Updated: 2024/03/25 02:59:12 by mjadid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*to_read(int fd, char *s)
 {
@@ -91,15 +91,17 @@ char	*to_update(char *str)
 
 char	*get_next_line(int fd)
 {
-	static char	*s;
+	static char	*s[OPEN_MAX];
 	char		*line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) == -1)
-		return (to_free(&s));
-	s = to_read(fd, s);
-	if (!s)
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	line = ft_linelimiter(s);
-	s = to_update(s);
+	if (read(fd, 0, 0) == -1)
+		return (to_free(&s[fd]));
+	s[fd] = to_read(fd, s[fd]);
+	if (!s[fd])
+		return (NULL);
+	line = ft_linelimiter(s[fd]);
+	s[fd] = to_update(s[fd]);
 	return (line);
 }
