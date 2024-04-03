@@ -6,7 +6,7 @@
 /*   By: mjadid <mjadid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 22:38:18 by mjadid            #+#    #+#             */
-/*   Updated: 2024/03/25 03:06:43 by mjadid           ###   ########.fr       */
+/*   Updated: 2024/04/03 03:19:06 by mjadid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,21 +42,29 @@ char	*to_read(int fd, char *s)
 
 char	*ft_linelimiter(char *str)
 {
-	size_t	i;
-	size_t	len;
+	int		i;
 	char	*line;
 
 	i = 0;
-	len = ft_strlen(str, '\n');
-	line = malloc(len + 2);
-	if (!line)
-		return (to_free(&str));
-	while (str[i] && i <= len)
+	while (str[i] != '\0')
 	{
-		line[i] = str[i];
+		if (str[i] == '\n')
+		{
+			i++;
+			break ;
+		}
 		i++;
 	}
+	line = malloc((i + 1) * sizeof(char));
+	if (line == NULL)
+		return (NULL);
 	line[i] = '\0';
+	i--;
+	while (i >= 0)
+	{
+		line[i] = str[i];
+		i--;
+	}
 	return (line);
 }
 
@@ -88,7 +96,7 @@ char	*to_update(char *str)
 	return (newstr);
 }
 
-char	*get_next_line(int fd)
+char	*get_next_line_bonus(int fd)
 {
 	static char	*s[OPEN_MAX];
 	char		*line;
